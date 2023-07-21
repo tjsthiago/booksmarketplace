@@ -12,7 +12,7 @@ class CustomerService (
         customerRepository.save(customer)
     }
 
-    fun get(id: Long): CustomerModel {
+    fun getById(id: Long): CustomerModel {
         return customerRepository.findById(id).orElseThrow{
             throw Exception("Customer with $id not found")
         }
