@@ -3,7 +3,7 @@ package com.study.booksmarketplace.extention
 import com.study.booksmarketplace.controller.request.CreateBookRequest
 import com.study.booksmarketplace.controller.request.UpadateBookRequest
 import com.study.booksmarketplace.model.BookModel
-import com.study.booksmarketplace.model.BookStatus
+import com.study.booksmarketplace.model.enums.BookStatus
 import com.study.booksmarketplace.model.CustomerModel
 
 fun CreateBookRequest.toBookModel(customer: CustomerModel): BookModel {

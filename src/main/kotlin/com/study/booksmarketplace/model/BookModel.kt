@@ -1,5 +1,6 @@
 package com.study.booksmarketplace.model
 
+import com.study.booksmarketplace.model.enums.BookStatus
 import jakarta.persistence.*
 import java.math.BigDecimal
 

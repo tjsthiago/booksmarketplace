@@ -1,4 +1,4 @@
-package com.study.booksmarketplace.model
+package com.study.booksmarketplace.model.enums
 
 enum class BookStatus {
     ACTIVE,

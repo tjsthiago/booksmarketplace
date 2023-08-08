@@ -1,18 +1,19 @@
 package com.study.booksmarketplace.service
 
 import com.study.booksmarketplace.model.CustomerModel
+import com.study.booksmarketplace.model.enums.CustomerStatus
 import com.study.booksmarketplace.repository.CustomerRepository
 import org.springframework.stereotype.Service
 
 @Service
 class CustomerService (
-    private val customerRepository: CustomerRepository
+    private val customerRepository: CustomerRepository,
 ) {
     fun create(customer: CustomerModel) {
         customerRepository.save(customer)
     }
 
-    fun getById(id: Long): CustomerModel {
+    fun findById(id: Long): CustomerModel {
         return customerRepository.findById(id).orElseThrow{
             throw Exception("Customer with $id not found")
         }
@@ -34,12 +35,10 @@ class CustomerService (
         customerRepository.save(customer)
     }
 
-    fun delete(id: Long) {
-        if(!customerRepository.existsById(id)) {
-            throw Exception("Customer with $id not found")
-        }
-
-        customerRepository.deleteById(id)
+    fun deactivateById(id: Long) {
+        val customer = findById(id)
+        customer.status = CustomerStatus.INACTIVE
+        customerRepository.save(customer)
     }
 
 }

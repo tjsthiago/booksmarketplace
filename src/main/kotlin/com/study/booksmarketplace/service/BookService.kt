@@ -1,7 +1,8 @@
 package com.study.booksmarketplace.service
 
 import com.study.booksmarketplace.model.BookModel
-import com.study.booksmarketplace.model.BookStatus
+import com.study.booksmarketplace.model.CustomerModel
+import com.study.booksmarketplace.model.enums.BookStatus
 import com.study.booksmarketplace.repository.BookRepository
 import org.springframework.stereotype.Service
 
@@ -38,5 +39,15 @@ class BookService (
 
     fun update(book: BookModel) {
         bookRepository.save(book)
+    }
+
+    fun deleteByCustomer(customer: CustomerModel) {
+        val books = bookRepository.findByCustomer(customer)
+
+        books.forEach {
+            it.status = BookStatus.DELETED
+        }
+
+        bookRepository.saveAll(books)
     }
 }
