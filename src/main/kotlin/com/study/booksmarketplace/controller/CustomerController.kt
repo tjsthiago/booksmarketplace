@@ -6,6 +6,9 @@ import com.study.booksmarketplace.controller.response.CustomerResponse
 import com.study.booksmarketplace.extention.toModel
 import com.study.booksmarketplace.extention.toResponse
 import com.study.booksmarketplace.service.CustomerService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -22,8 +25,11 @@ class CustomerController (
     }
 
     @GetMapping
-    fun findAll(@RequestParam name: String?): List<CustomerResponse> {
-        return customerService.findAll(name).map { it.toResponse() }
+    fun findAll(
+        @PageableDefault(page = 0, size = 10) pageable: Pageable,
+        @RequestParam name: String?
+    ): Page<CustomerResponse> {
+        return customerService.findAll(pageable, name).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")

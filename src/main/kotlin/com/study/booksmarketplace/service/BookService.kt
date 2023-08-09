@@ -1,9 +1,10 @@
 package com.study.booksmarketplace.service
 
 import com.study.booksmarketplace.model.BookModel
-import com.study.booksmarketplace.model.CustomerModel
 import com.study.booksmarketplace.model.enums.BookStatus
 import com.study.booksmarketplace.repository.BookRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,12 +16,12 @@ class BookService (
         bookRepository.save(book)
     }
 
-    fun findAll(): List<BookModel> {
-        return bookRepository.findAll().toList()
+    fun findAll(pageable: Pageable): Page<BookModel> {
+        return bookRepository.findAll(pageable)
     }
 
-    fun findActivers(): List<BookModel> {
-        return bookRepository.findByStatus(BookStatus.ACTIVE)
+    fun findActivers(pageable: Pageable): Page<BookModel> {
+        return bookRepository.findByStatus(pageable, BookStatus.ACTIVE)
     }
 
     fun findById(id: Long): BookModel {
@@ -39,15 +40,5 @@ class BookService (
 
     fun update(book: BookModel) {
         bookRepository.save(book)
-    }
-
-    fun deleteByCustomer(customer: CustomerModel) {
-        val books = bookRepository.findByCustomer(customer)
-
-        books.forEach {
-            it.status = BookStatus.DELETED
-        }
-
-        bookRepository.saveAll(books)
     }
 }

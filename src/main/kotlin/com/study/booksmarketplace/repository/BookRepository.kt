@@ -1,13 +1,13 @@
 package com.study.booksmarketplace.repository
 
 import com.study.booksmarketplace.model.BookModel
-import com.study.booksmarketplace.model.CustomerModel
 import com.study.booksmarketplace.model.enums.BookStatus
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface BookRepository : CrudRepository<BookModel, Long> {
-    fun findByStatus(active: BookStatus): List<BookModel>
+interface BookRepository : JpaRepository<BookModel, Long> {
 
-    fun findByCustomer(customer: CustomerModel): List<BookModel>
+    fun findByStatus(pageable: Pageable, active: BookStatus): Page<BookModel>
 
 }

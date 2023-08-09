@@ -1,10 +1,12 @@
 package com.study.booksmarketplace.repository
 
 import com.study.booksmarketplace.model.CustomerModel
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface CustomerRepository : CrudRepository<CustomerModel, Long> {
+interface CustomerRepository : JpaRepository<CustomerModel, Long> {
 
-    fun findByNameContainingIgnoreCase(name: String) : List<CustomerModel>
+    fun findByNameContainingIgnoreCase(pageable: Pageable, name: String) : Page<CustomerModel>
 
 }

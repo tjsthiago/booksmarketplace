@@ -3,6 +3,8 @@ package com.study.booksmarketplace.service
 import com.study.booksmarketplace.model.CustomerModel
 import com.study.booksmarketplace.model.enums.CustomerStatus
 import com.study.booksmarketplace.repository.CustomerRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -19,12 +21,12 @@ class CustomerService (
         }
     }
 
-    fun findAll(name: String?): List<CustomerModel> {
+    fun findAll(pageable: Pageable, name: String?): Page<CustomerModel> {
         name?.let{
-            return customerRepository.findByNameContainingIgnoreCase(name)
+            return customerRepository.findByNameContainingIgnoreCase(pageable, name)
         }
 
-        return customerRepository.findAll().toList()
+        return customerRepository.findAll(pageable)
     }
 
     fun update(customer: CustomerModel) {
