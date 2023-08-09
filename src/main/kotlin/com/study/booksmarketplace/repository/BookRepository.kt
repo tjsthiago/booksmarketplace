@@ -1,8 +1,8 @@
 package com.study.booksmarketplace.repository
 
 import com.study.booksmarketplace.model.BookModel
-import com.study.booksmarketplace.model.enums.BookStatus
 import com.study.booksmarketplace.model.CustomerModel
+import com.study.booksmarketplace.model.enums.BookStatus
 import org.springframework.data.repository.CrudRepository
 
 interface BookRepository : CrudRepository<BookModel, Long> {

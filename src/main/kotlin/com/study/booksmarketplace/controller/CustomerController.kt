@@ -2,8 +2,9 @@ package com.study.booksmarketplace.controller
 
 import com.study.booksmarketplace.controller.request.CreateCustomerRequest
 import com.study.booksmarketplace.controller.request.UpadateCustomerRequest
-import com.study.booksmarketplace.extention.toCustomerModel
-import com.study.booksmarketplace.model.CustomerModel
+import com.study.booksmarketplace.controller.response.CustomerResponse
+import com.study.booksmarketplace.extention.toModel
+import com.study.booksmarketplace.extention.toResponse
 import com.study.booksmarketplace.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -17,24 +18,24 @@ class CustomerController (
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody createCustomerRequest: CreateCustomerRequest) {
-        customerService.create(createCustomerRequest.toCustomerModel())
+        customerService.create(createCustomerRequest.toModel())
     }
 
     @GetMapping
-    fun findAll(@RequestParam name: String?): List<CustomerModel> {
-        return customerService.findAll(name)
+    fun findAll(@RequestParam name: String?): List<CustomerResponse> {
+        return customerService.findAll(name).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Long): CustomerModel {
-        return customerService.findById(id)
+    fun get(@PathVariable id: Long): CustomerResponse {
+        return customerService.findById(id).toResponse()
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: Long, @RequestBody upadateCustomerRequest: UpadateCustomerRequest) {
         val customer = customerService.findById(id)
-        customerService.update(upadateCustomerRequest.toCustomerModel(customer))
+        customerService.update(upadateCustomerRequest.toModel(customer))
     }
 
     @DeleteMapping("/{id}")
