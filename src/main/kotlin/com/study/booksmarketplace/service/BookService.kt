@@ -1,5 +1,6 @@
 package com.study.booksmarketplace.service
 
+import com.study.booksmarketplace.exption.NotFoundException
 import com.study.booksmarketplace.model.BookModel
 import com.study.booksmarketplace.model.enums.BookStatus
 import com.study.booksmarketplace.repository.BookRepository
@@ -26,7 +27,7 @@ class BookService (
 
     fun findById(id: Long): BookModel {
         return bookRepository.findById(id).orElseThrow {
-            throw Exception("Book with $id not found")
+            throw NotFoundException("Book with $id not found")
         }
     }
 

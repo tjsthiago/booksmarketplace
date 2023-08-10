@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/booksmarketplace
+    username: postgres
+    password: postgres
+  flyway:
+    baselineOnMigrate: 'true'
+
+  jackson:
+    default-property-inclusion: non_null
