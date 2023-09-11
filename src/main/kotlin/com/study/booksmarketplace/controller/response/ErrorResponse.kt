@@ -5,6 +5,6 @@ import org.springframework.http.HttpStatusCode
 data class ErrorResponse(
     var httpStatusCode: HttpStatusCode,
     var message: String,
-    var internalCode: Int,
+    var internalCode: String,
     var errors: List<FieldErrorResponse>
 )

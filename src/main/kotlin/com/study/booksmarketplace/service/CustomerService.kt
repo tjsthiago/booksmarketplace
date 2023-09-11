@@ -1,5 +1,7 @@
 package com.study.booksmarketplace.service
 
+import com.study.booksmarketplace.exption.ErrorCodes.*
+import com.study.booksmarketplace.exption.NotFoundException
 import com.study.booksmarketplace.model.CustomerModel
 import com.study.booksmarketplace.model.enums.CustomerStatus
 import com.study.booksmarketplace.repository.CustomerRepository
@@ -17,7 +19,7 @@ class CustomerService (
 
     fun findById(id: Long): CustomerModel {
         return customerRepository.findById(id).orElseThrow{
-            throw Exception("Customer with $id not found")
+            throw NotFoundException("Customer with id:$id not found", NOT_FOUND.code)
         }
     }
 

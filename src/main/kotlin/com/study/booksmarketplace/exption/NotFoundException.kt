@@ -1,5 +1,6 @@
 package com.study.booksmarketplace.exption
 
-class NotFoundException(message: String) : Exception() {
-
-}
+class NotFoundException(
+    override val message: String,
+    val errorCode: String
+) : Exception()

@@ -1,5 +1,6 @@
 package com.study.booksmarketplace.service
 
+import com.study.booksmarketplace.exption.ErrorCodes.*
 import com.study.booksmarketplace.exption.NotFoundException
 import com.study.booksmarketplace.model.BookModel
 import com.study.booksmarketplace.model.enums.BookStatus
@@ -21,13 +22,13 @@ class BookService (
         return bookRepository.findAll(pageable)
     }
 
-    fun findActivers(pageable: Pageable): Page<BookModel> {
+    fun findActives(pageable: Pageable): Page<BookModel> {
         return bookRepository.findByStatus(pageable, BookStatus.ACTIVE)
     }
 
     fun findById(id: Long): BookModel {
         return bookRepository.findById(id).orElseThrow {
-            throw NotFoundException("Book with $id not found")
+            throw NotFoundException("Book with id:$id not found", NOT_FOUND.code)
         }
     }
 
