@@ -1,11 +1,12 @@
 package com.study.booksmarketplace.controller
 
 import com.study.booksmarketplace.controller.request.CreateCustomerRequest
-import com.study.booksmarketplace.controller.request.UpadateCustomerRequest
+import com.study.booksmarketplace.controller.request.UpdateCustomerRequest
 import com.study.booksmarketplace.controller.response.CustomerResponse
 import com.study.booksmarketplace.extention.toModel
 import com.study.booksmarketplace.extention.toResponse
 import com.study.booksmarketplace.service.CustomerService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -20,7 +21,7 @@ class CustomerController (
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody createCustomerRequest: CreateCustomerRequest) {
+    fun create(@RequestBody @Valid createCustomerRequest: CreateCustomerRequest) {
         customerService.create(createCustomerRequest.toModel())
     }
 
@@ -39,9 +40,9 @@ class CustomerController (
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: Long, @RequestBody upadateCustomerRequest: UpadateCustomerRequest) {
+    fun update(@PathVariable id: Long, @RequestBody @Valid updateCustomerRequest: UpdateCustomerRequest) {
         val customer = customerService.findById(id)
-        customerService.update(upadateCustomerRequest.toModel(customer))
+        customerService.update(updateCustomerRequest.toModel(customer))
     }
 
     @DeleteMapping("/{id}")

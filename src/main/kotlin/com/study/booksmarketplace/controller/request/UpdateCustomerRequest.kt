@@ -3,7 +3,7 @@ package com.study.booksmarketplace.controller.request
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 
-data class CreateCustomerRequest (
+data class UpdateCustomerRequest (
     @field:NotEmpty(message = "Should be not empty")
     var name: String,
 
