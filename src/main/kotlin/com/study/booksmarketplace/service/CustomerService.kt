@@ -1,9 +1,9 @@
 package com.study.booksmarketplace.service
 
-import com.study.booksmarketplace.exption.ErrorCodes.*
 import com.study.booksmarketplace.exption.NotFoundException
 import com.study.booksmarketplace.model.CustomerModel
 import com.study.booksmarketplace.model.enums.CustomerStatus
+import com.study.booksmarketplace.model.enums.Errors
 import com.study.booksmarketplace.repository.CustomerRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -19,7 +19,10 @@ class CustomerService (
 
     fun findById(id: Long): CustomerModel {
         return customerRepository.findById(id).orElseThrow{
-            throw NotFoundException("Customer with id:$id not found", NOT_FOUND.code)
+            throw NotFoundException(
+                Errors.CUSTOMER_NOT_FOUND.message.format(id),
+                Errors.CUSTOMER_NOT_FOUND.code
+            )
         }
     }
 
@@ -33,7 +36,10 @@ class CustomerService (
 
     fun update(customer: CustomerModel) {
         if(!customerRepository.existsById(customer.id!!)) {
-            throw Exception("Customer with ${customer.id!!} not found")
+            throw NotFoundException(
+                Errors.CUSTOMER_NOT_FOUND.message.format(customer.id),
+                Errors.CUSTOMER_NOT_FOUND.code
+            )
         }
 
         customerRepository.save(customer)

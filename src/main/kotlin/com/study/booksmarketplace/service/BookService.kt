@@ -1,9 +1,9 @@
 package com.study.booksmarketplace.service
 
-import com.study.booksmarketplace.exption.ErrorCodes.*
 import com.study.booksmarketplace.exption.NotFoundException
 import com.study.booksmarketplace.model.BookModel
 import com.study.booksmarketplace.model.enums.BookStatus
+import com.study.booksmarketplace.model.enums.Errors
 import com.study.booksmarketplace.repository.BookRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -28,7 +28,10 @@ class BookService (
 
     fun findById(id: Long): BookModel {
         return bookRepository.findById(id).orElseThrow {
-            throw NotFoundException("Book with id:$id not found", NOT_FOUND.code)
+            throw NotFoundException(
+                Errors.BOOK_NOT_FOUND.message.format(id),
+                Errors.BOOK_NOT_FOUND.code
+            )
         }
     }
 
