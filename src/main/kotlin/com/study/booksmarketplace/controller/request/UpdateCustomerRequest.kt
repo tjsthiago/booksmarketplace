@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 
 data class UpdateCustomerRequest (
-    @field:NotEmpty(message = "Should be not empty")
+    @field:NotEmpty(message = "The customer name is mandatory")
     var name: String,
 
     @field:Email(message = "Should be a valid e-mail")

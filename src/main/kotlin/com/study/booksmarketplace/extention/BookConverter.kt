@@ -1,7 +1,7 @@
 package com.study.booksmarketplace.extention
 
 import com.study.booksmarketplace.controller.request.CreateBookRequest
-import com.study.booksmarketplace.controller.request.UpadateBookRequest
+import com.study.booksmarketplace.controller.request.UpdateBookRequest
 import com.study.booksmarketplace.controller.response.BookResponse
 import com.study.booksmarketplace.model.BookModel
 import com.study.booksmarketplace.model.CustomerModel
@@ -16,7 +16,7 @@ fun CreateBookRequest.toModel(customer: CustomerModel): BookModel {
     )
 }
 
-fun UpadateBookRequest.toModel(previousValue: BookModel): BookModel {
+fun UpdateBookRequest.toModel(previousValue: BookModel): BookModel {
     return BookModel(
         id = previousValue.id,
         name = this.name ?: previousValue.name,

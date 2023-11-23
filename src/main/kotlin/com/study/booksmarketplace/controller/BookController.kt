@@ -1,12 +1,13 @@
 package com.study.booksmarketplace.controller
 
 import com.study.booksmarketplace.controller.request.CreateBookRequest
-import com.study.booksmarketplace.controller.request.UpadateBookRequest
+import com.study.booksmarketplace.controller.request.UpdateBookRequest
 import com.study.booksmarketplace.controller.response.BookResponse
 import com.study.booksmarketplace.extention.toModel
 import com.study.booksmarketplace.extention.toResponse
 import com.study.booksmarketplace.service.BookService
 import com.study.booksmarketplace.service.CustomerService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -22,7 +23,7 @@ class BookController (
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody request: CreateBookRequest) {
+    fun create(@RequestBody @Valid request: CreateBookRequest) {
         val customer = customerService.findById(request.customerId)
         bookService.create(request.toModel(customer))
     }
@@ -50,7 +51,7 @@ class BookController (
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: Long, @RequestBody request: UpadateBookRequest) {
+    fun update(@PathVariable id: Long, @RequestBody @Valid request: UpdateBookRequest) {
         val persistedBook = bookService.findById(id)
         bookService.update(request.toModel(persistedBook))
     }
