@@ -9,4 +9,6 @@ interface CustomerRepository : JpaRepository<CustomerModel, Long> {
 
     fun findByNameContainingIgnoreCase(pageable: Pageable, name: String) : Page<CustomerModel>
 
+    fun existsByEmail(email: String): Boolean
+
 }
