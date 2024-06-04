@@ -46,4 +46,8 @@ class BookService (
     fun update(book: BookModel) {
         bookRepository.save(book)
     }
+
+    fun findAllByIds(bookIds: Set<Long>): List<BookModel> {
+        return bookRepository.findAllById(bookIds.asIterable()).toList()
+    }
 }
