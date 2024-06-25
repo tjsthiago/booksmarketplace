@@ -5,6 +5,7 @@ import com.study.booksmarketplace.model.BookModel
 import com.study.booksmarketplace.model.enums.BookStatus
 import com.study.booksmarketplace.model.enums.Errors
 import com.study.booksmarketplace.repository.BookRepository
+import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -49,5 +50,14 @@ class BookService (
 
     fun findAllByIds(bookIds: Set<Long>): List<BookModel> {
         return bookRepository.findAllById(bookIds.asIterable()).toList()
+    }
+
+    @Transactional
+    fun purchase(books: MutableList<BookModel>) {
+        books.map {
+            it.status = BookStatus.SOLD
+        }
+
+        bookRepository.saveAll(books)
     }
 }
